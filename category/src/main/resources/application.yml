@@ -5,6 +5,14 @@ spring:
   application:
     name: service-category
 
+  config.import: optional:configserver:http://localhost:8888
+
+
+management:
+  enpoints:
+    web:
+      exposure:
+        include: "*"
 
 eureka:
   client:
@@ -13,3 +21,4 @@ eureka:
 
   instance:
     hostname: localhost
+
