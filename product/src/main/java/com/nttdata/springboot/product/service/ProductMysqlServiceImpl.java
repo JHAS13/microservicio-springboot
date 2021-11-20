@@ -12,12 +12,17 @@ import java.util.List;
 public class ProductMysqlServiceImpl implements  ProductService {
 
     @Override
-    public Product getProduct() {
+    public Product getProduct(Integer id) {
         return Product.builder().id(2).name("PRODUCTO 02").build();
     }
 
     @Override
     public List<Product> getProductAll() {
+        return null;
+    }
+
+    @Override
+    public List<Product> getProductByIdCategory(Integer idCategory) {
         return null;
     }
 }

@@ -1,6 +1,8 @@
 package com.nttdata.springboot.product.service;
 
+import com.nttdata.springboot.product.dao.ProductDao;
 import com.nttdata.springboot.product.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +13,28 @@ import java.util.List;
 @Qualifier("productService")
 public class ProductServiceImpl implements  ProductService{
 
+    @Autowired
+    ProductDao productDao;
+
     @Override
-    public Product getProduct() {
+    public Product getProduct(Integer id) {
         return Product.builder()
                 .id(1)
                 .name("producto 1")
                 .build();
     }
 
-    public List<Product> getProductAll(){
+    @Override
+    public List<Product> getProductByIdCategory(Integer idCategory) {
         List<Product> listProduct = new ArrayList<>();
-        listProduct.add(Product.builder().id(1).name("producto 1").build());
-        listProduct.add(Product.builder().id(2).name("producto 2").build());
-        listProduct.add(Product.builder().id(3).name("producto 3").build());
-        listProduct.add(Product.builder().id(4).name("producto 4").build());
-        listProduct.add(Product.builder().id(5).name("producto 5").build());
-
+        productDao.findProductByIdCategory(idCategory).forEach(product -> listProduct.add(product));
         return listProduct;
+    }
+
+    @Override
+    public List<Product> getProductAll(){
+        List<Product> listProd = new ArrayList<>();
+        productDao.findAll().forEach(product -> listProd.add(product));
+        return listProd;
     }
 }

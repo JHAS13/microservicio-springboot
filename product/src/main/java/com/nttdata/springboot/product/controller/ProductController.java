@@ -50,14 +50,14 @@ public class ProductController {
      * Qualifier para diferenciar implementaciones de una interface
      */
 
-    @GetMapping("/getProduct")
-    public Product getProduct(){
-        return  productService.getProduct();
+    @GetMapping("/getProduct/{id}")
+    public Product getProduct(@PathVariable Integer id){
+        return  productService.getProduct(id);
     }
 
     @PostMapping("/getProduct")
     public Product getPostProduct(){
-        return productoMysqlService.getProduct();
+        return productoMysqlService.getProduct(1);
     }
 
 
@@ -65,6 +65,13 @@ public class ProductController {
     public List<Product> getProductAll(){
         return  productService.getProductAll();
     }
+
+    @GetMapping("/getProduct/category/{id}")
+    public List<Product> getProductCategory(@PathVariable Integer id){
+        return  productService.getProductByIdCategory(id);
+    }
+
+
 
     /**
      * PathVariable > Datos enviados en la url
@@ -90,7 +97,7 @@ public class ProductController {
         return ResponseEntity
                 .ok()
                 .header("token","1365475")
-                .body(productService.getProduct());
+                .body(productService.getProduct(1));
         //return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
